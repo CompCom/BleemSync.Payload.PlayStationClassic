@@ -383,6 +383,13 @@ execute_bleemsync_func(){
   echo "[BLEEMSYNC](PROFILE) BleemSync general fixing took: $(((end-start)/1000000))ms to execute"
 #-----------------------------------------------------------------------------#
   start=$(date +%s%N)
+  chmod +x "$bleemsync_path/opt/cc_transfer_tools/psc_game_add"
+  cd "$bleemsync_path/opt/cc_transfer_tools"
+  "$bleemsync_path/opt/cc_transfer_tools/psc_game_add" "$mountpoint/transfer/" "$bleemsync_path/etc/bleemsync/SYS/databases/" "$mountpoint/games/" &> "$runtime_log_path/transfer.log"
+  end=$(date +%s%N)
+  echo "[BLEEMSYNC](PROFILE) Transfer tool execution took: $(((end-start)/1000000))ms to execute"
+#-----------------------------------------------------------------------------#
+  start=$(date +%s%N)
 
   boot_command="launch_StockUI"
   [ "$boot_target_stock_BM" = "1" ] && boot_command="launch_BootMenu"
